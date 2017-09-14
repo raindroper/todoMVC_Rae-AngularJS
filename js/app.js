@@ -80,7 +80,21 @@
 		}
 	  }
 	}
+
+	//剩余条目
+	$scope.getActive = function(){
+	  var count = 0;
+	  for (var i = 0; i < $scope.todolists.length; i++) {
+		var item = $scope.todolists[i]
+		if(!item.complete){
+		  count++
+		}
+	  }
+	  return count
+	}
   })
+
+
 
 
   // Your starting point. Enjoy the ride!
