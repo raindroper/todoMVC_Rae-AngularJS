@@ -5,7 +5,7 @@
   //con			控制器
   //todoList	任务列表
   var app = angular.module("todoApp", []);
-  app.controller("con", function ($scope, $log) {
+  app.controller("con", function ($scope, $log, $location) {
 	$scope.todolists = [
 	  {id: 5, name: "吃饭", complete: true, if: true},
 	  {id: 4, name: "运动", complete: true, if: true},
@@ -82,19 +82,49 @@
 	}
 
 	//剩余条目
-	$scope.getActive = function(){
+	$scope.getActive = function () {
 	  var count = 0;
 	  for (var i = 0; i < $scope.todolists.length; i++) {
 		var item = $scope.todolists[i]
-		if(!item.complete){
+		if (!item.complete && item.if) {
 		  count++
 		}
 	  }
 	  return count
 	}
+
+
+	// //显示已完成
+	// $scope.showCompleted = function () {
+	//   $scope.isCompleted = {complete : true}
+	// }
+	//
+	// //显示未完成
+	// $scope.showActive = function () {
+	//   $scope.isCompleted = {complete : false}
+	// }
+	//
+	// //显示全部
+	//
+	// $scope.showAll = function () {
+	//   $scope.isCompleted = {}
+	// }
+
+
+	$scope.loac = $location;
+	$scope.$watch("loac.url()", function (n, o) {
+	  switch (n) {
+		case "/active":
+		  $scope.isCompleted = {complete : false};
+		  break;
+		case "/completed":
+		  $scope.isCompleted = {complete : true};
+		  break;
+		default:
+		  $scope.isCompleted = {complete : undefined};
+	  }
+	})
   })
-
-
 
 
   // Your starting point. Enjoy the ride!
