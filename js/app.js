@@ -37,8 +37,9 @@
 	$scope.isif = true;
 	$scope.remove = function (item) {
 	  item.if = false;
-	  $scope.hasrem.push(item.id)
-	  $log.log($scope.hasrem)
+	  $scope.hasrem.push(item.id);
+	  $log.log($scope.hasrem);
+	  item.complete = false;
 	}
 
 
