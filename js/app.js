@@ -64,11 +64,21 @@
 
 	//撤销
 	$scope.cancel = function () {
-	  if($scope.hasrem.length === 0){
-	    return
+	  if ($scope.hasrem.length === 0) {
+		return
 	  }
-	  $scope.todolists[($scope.todolists.length - $scope.hasrem[$scope.hasrem.length-1])].if = true;
+	  $scope.todolists[($scope.todolists.length - $scope.hasrem[$scope.hasrem.length - 1])].if = true;
 	  $scope.hasrem.pop();
+	}
+
+
+	//清除已完成
+	$scope.clearCompleted = function () {
+	  for (var i = 0; i < $scope.todolists.length; i++) {
+		if ($scope.todolists[i].complete) {
+		  $scope.todolists[i].if = false;
+		}
+	  }
 	}
   })
 
