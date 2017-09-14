@@ -4,15 +4,9 @@
   //todoApp		模块
   //con			控制器
   //todoList	任务列表
-  var app = angular.module("todoApp", []);
-  app.controller("con", function ($scope, $log, $location) {
-	$scope.todolists = [
-	  {id: 5, name: "吃饭", complete: true, if: true},
-	  {id: 4, name: "运动", complete: true, if: true},
-	  {id: 3, name: "游戏", complete: false, if: true},
-	  {id: 2, name: "喝水", complete: true, if: true},
-	  {id: 1, name: "睡觉", complete: true, if: true},
-	];
+  var app = angular.module("todoApp", ["serviceMOD"]);
+  app.controller("con", ["$scope", "$log", "$location","ser", function ($scope, $log, $location,ser) {
+	$scope.todolists = ser.getLists();
 
 	$scope.hasrem = [];
 
@@ -24,12 +18,7 @@
 	  if (!$scope.newItem) {
 		return
 	  }
-	  //在前面添加newItem
-	  $scope.todolists.unshift({
-		id: $scope.todolists[$scope.todolists.length - 1].id - 0 + 1,
-		name: $scope.newItem,
-		complete: true
-	  })
+	  ser.add($scope.newItem);
 	  //置空newItem
 	  $scope.newItem = "";
 	}
@@ -115,16 +104,16 @@
 	$scope.$watch("loac.url()", function (n, o) {
 	  switch (n) {
 		case "/active":
-		  $scope.isCompleted = {complete : false};
+		  $scope.isCompleted = {complete: false};
 		  break;
 		case "/completed":
-		  $scope.isCompleted = {complete : true};
+		  $scope.isCompleted = {complete: true};
 		  break;
 		default:
-		  $scope.isCompleted = {complete : undefined};
+		  $scope.isCompleted = {complete: undefined};
 	  }
 	})
-  })
+  }])
 
 
   // Your starting point. Enjoy the ride!
