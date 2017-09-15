@@ -28,5 +28,13 @@
 	  })
 	  this.save()
 	}
+
+
+	//删除数据
+	this.remove = function (item) {
+	  todoLists[todoLists.length-item.id].if = false;
+	  // item.if = false;
+	  this.save();
+	}
   }])
 })(angular)

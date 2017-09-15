@@ -23,12 +23,9 @@
 	  $scope.newItem = "";
 	}
 	//删除任务
-	$scope.isif = true;
 	$scope.remove = function (item) {
-	  item.if = false;
+	  ser.remove(item);
 	  $scope.hasrem.push(item.id);
-	  $log.log($scope.hasrem);
-	  item.complete = false;
 	}
 
 
