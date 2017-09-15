@@ -96,9 +96,9 @@
 		ser.save();
 	  }
 
-	  //监听
+	  //监听localStorage中
 	  var hasRem = $window.localStorage.getItem("hasRemove");
-	  $scope.$watch(hasRem, function (newVal) {
+	  $scope.$watch("hasRem", function () {
 		ser.clearRemoveList();
 	  })
 	}])

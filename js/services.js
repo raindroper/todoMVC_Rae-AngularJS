@@ -82,6 +82,5 @@
 		  this.saveRemoveList();
 		}
 	  }
-
 	}])
 })(angular)
