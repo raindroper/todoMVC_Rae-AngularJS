@@ -8,8 +8,6 @@
   app.controller("con", ["$scope", "$log", "$location","ser", function ($scope, $log, $location,ser) {
 	$scope.todolists = ser.getLists();
 
-	$scope.hasrem = [];
-
 	//添加任务
 	//newItem	新添加的任务
 	$scope.newItem = "";
@@ -25,7 +23,6 @@
 	//删除任务
 	$scope.remove = function (item) {
 	  ser.remove(item);
-	  $scope.hasrem.push(item.id);
 	}
 
 
@@ -50,21 +47,13 @@
 
 	//撤销
 	$scope.cancel = function () {
-	  if ($scope.hasrem.length === 0) {
-		return
-	  }
-	  $scope.todolists[($scope.todolists.length - $scope.hasrem[$scope.hasrem.length - 1])].if = true;
-	  $scope.hasrem.pop();
+	  ser.back();
 	}
 
 
 	//清除已完成
 	$scope.clearCompleted = function () {
-	  for (var i = 0; i < $scope.todolists.length; i++) {
-		if ($scope.todolists[i].complete) {
-		  $scope.todolists[i].if = false;
-		}
-	  }
+	  ser.clearCompleted();
 	}
 
 	//剩余条目
@@ -79,37 +68,28 @@
 	  return count
 	}
 
-
-	// //显示已完成
-	// $scope.showCompleted = function () {
-	//   $scope.isCompleted = {complete : true}
-	// }
-	//
-	// //显示未完成
-	// $scope.showActive = function () {
-	//   $scope.isCompleted = {complete : false}
-	// }
-	//
-	// //显示全部
-	//
-	// $scope.showAll = function () {
-	//   $scope.isCompleted = {}
-	// }
-
-
+	//显示状态
 	$scope.loac = $location;
 	$scope.$watch("loac.url()", function (n, o) {
 	  switch (n) {
+	    //未完成
 		case "/active":
 		  $scope.isCompleted = {complete: false};
 		  break;
+		//已完成
 		case "/completed":
 		  $scope.isCompleted = {complete: true};
 		  break;
+		//默认
 		default:
 		  $scope.isCompleted = {complete: undefined};
 	  }
 	})
+
+	//状态更改
+	$scope.saveChange = function () {
+	  ser.save();
+	}
   }])
 
 

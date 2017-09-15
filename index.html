@@ -27,7 +27,7 @@
 			<li ng-repeat="item in todolists | filter : isCompleted" ng-if="item.if"
 				ng-class="{editing : item.id === editId,completed: item.complete === true}">
 				<div class="view">
-					<input class="toggle" type="checkbox" ng-model="item.complete">
+					<input class="toggle" type="checkbox" ng-model="item.complete" ng-change="saveChange()">
 					<label ng-dblclick="edit(item.id)" ng-blur="save()">{{item.name}}</label>
 					<button class="destroy" ng-click="remove(item)"></button>
 				</div>
@@ -51,7 +51,7 @@
 				   ng-click="showActive()">Active</a>
 			</li>
 			<li>
-				<a href="#/active" ng-click="cancel()">撤销</a>
+				<a href="javascript:;" ng-click="cancel()">撤销</a>
 			</li>
 			<li>
 				<a ng-class="{selected:isCompleted.complete == true}" href="#/completed" ng-click="showCompleted()">Completed</a>
